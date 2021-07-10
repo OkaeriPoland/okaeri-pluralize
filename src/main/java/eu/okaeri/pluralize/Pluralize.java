@@ -1,5 +1,7 @@
 package eu.okaeri.pluralize;
 
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -157,12 +159,12 @@ public final class Pluralize {
 //        add("zh", 2, n -> (n > 1) ? 1 : 0); // Chinese [#f3]_
     }
 
-    private static void add(String isoLocale, int nplurals, Function<Integer, Integer> pluralizer) {
+    private static void add(@NonNull String isoLocale, int nplurals, @NonNull Function<Integer, Integer> pluralizer) {
         PLURALIZERS.put(isoLocale, pluralizer);
         PLURALS.put(isoLocale, nplurals);
     }
 
-    public static Optional<Function<Integer, Integer>> getPluralizer(Locale locale) {
+    public static Optional<Function<Integer, Integer>> getPluralizer(@NonNull Locale locale) {
 
         String lang = locale.getLanguage();
         String country = locale.getCountry();
@@ -177,11 +179,11 @@ public final class Pluralize {
     }
 
     @Deprecated
-    public static Optional<Function<Integer, Integer>> getPluralizer(String isoLocale) {
+    public static Optional<Function<Integer, Integer>> getPluralizer(@NonNull String isoLocale) {
         return Optional.ofNullable(PLURALIZERS.get(isoLocale));
     }
 
-    public static String pluralize(Locale locale, int n, String... plurals) {
+    public static String pluralize(@NonNull Locale locale, int n, @NonNull String... plurals) {
 
         Optional<Function<Integer, Integer>> pluralizer = getPluralizer(locale);
         if (!pluralizer.isPresent()) {
@@ -197,7 +199,7 @@ public final class Pluralize {
     }
 
     @Deprecated
-    public static String pluralize(String isoLocale, int n, String... plurals) {
+    public static String pluralize(@NonNull String isoLocale, int n, @NonNull String... plurals) {
 
         Optional<Function<Integer, Integer>> pluralizer = getPluralizer(isoLocale);
         if (!pluralizer.isPresent()) {
@@ -212,7 +214,7 @@ public final class Pluralize {
         return plurals[form];
     }
 
-    public static int plurals(Locale locale) {
+    public static int plurals(@NonNull Locale locale) {
 
         String lang = locale.getLanguage();
         String country = locale.getCountry();
@@ -231,7 +233,7 @@ public final class Pluralize {
     }
 
     @Deprecated
-    public static int plurals(String isoLocale) {
+    public static int plurals(@NonNull String isoLocale) {
 
         Integer plurals = PLURALS.get(isoLocale);
         if (plurals == null) {
