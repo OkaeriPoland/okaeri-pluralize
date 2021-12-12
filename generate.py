@@ -1,7 +1,7 @@
 import re
 
-def generate(data):
 
+def generate(data):
     regex = r"^\s+([a-zA-Z_]+),\s+([^,]+),\s+nplurals=([0-9]+);\s+plural=([^;]+);$"
     matches = re.finditer(regex, data, re.MULTILINE)
 

@@ -11,15 +11,20 @@ Based on [translate/l10n-guide](https://github.com/translate/l10n-guide/blob/mas
 Part of the [okaeri-placeholders](https://github.com/OkaeriPoland/okaeri-placeholders).
 
 ## Installation
+
 ### Maven
+
 Add repository to the `repositories` section:
+
 ```xml
 <repository>
     <id>okaeri-repo</id>
     <url>https://storehouse.okaeri.eu/repository/maven-public/</url>
 </repository>
 ```
+
 Add dependency to the `dependencies` section:
+
 ```xml
 <dependency>
   <groupId>eu.okaeri</groupId>
@@ -27,12 +32,17 @@ Add dependency to the `dependencies` section:
   <version>1.1.1</version>
 </dependency>
 ```
+
 ### Gradle
+
 Add repository to the `repositories` section:
+
 ```groovy
 maven { url "https://storehouse.okaeri.eu/repository/maven-public/" }
 ```
+
 Add dependency to the `maven` section:
+
 ```groovy
 implementation 'eu.okaeri:okaeri-pluralize:1.1.1'
 ```
