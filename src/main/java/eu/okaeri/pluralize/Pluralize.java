@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 public final class Pluralize {
 
-    private static final Map<String, Function<Integer, Integer>> PLURALIZERS = new HashMap<>();
+    private static final Map<String, Function<Long, Integer>> PLURALIZERS = new HashMap<>();
     private static final Map<String, Integer> PLURALS = new HashMap<>();
 
     static {
@@ -159,33 +159,33 @@ public final class Pluralize {
 //        add("zh", 2, n -> (n > 1) ? 1 : 0); // Chinese [#f3]_
     }
 
-    private static void add(@NonNull String isoLocale, int nplurals, @NonNull Function<Integer, Integer> pluralizer) {
+    private static void add(@NonNull String isoLocale, int nplurals, @NonNull Function<Long, Integer> pluralizer) {
         PLURALIZERS.put(isoLocale, pluralizer);
         PLURALS.put(isoLocale, nplurals);
     }
 
-    public static Optional<Function<Integer, Integer>> getPluralizer(@NonNull Locale locale) {
+    public static Optional<Function<Long, Integer>> getPluralizer(@NonNull Locale locale) {
 
         String lang = locale.getLanguage();
         String country = locale.getCountry();
 
         if (!lang.isEmpty() && !country.isEmpty()) {
-            Function<Integer, Integer> pluralizer = PLURALIZERS.get(lang + "_" + country);
+            Function<Long, Integer> pluralizer = PLURALIZERS.get(lang + "_" + country);
             if (pluralizer != null) return Optional.of(pluralizer);
         }
 
-        Function<Integer, Integer> pluralizer = PLURALIZERS.get(lang);
+        Function<Long, Integer> pluralizer = PLURALIZERS.get(lang);
         return Optional.ofNullable(pluralizer);
     }
 
     @Deprecated
-    public static Optional<Function<Integer, Integer>> getPluralizer(@NonNull String isoLocale) {
+    public static Optional<Function<Long, Integer>> getPluralizer(@NonNull String isoLocale) {
         return Optional.ofNullable(PLURALIZERS.get(isoLocale));
     }
 
-    public static String pluralize(@NonNull Locale locale, int n, @NonNull String... plurals) {
+    public static String pluralize(@NonNull Locale locale, long n, @NonNull String... plurals) {
 
-        Optional<Function<Integer, Integer>> pluralizer = getPluralizer(locale);
+        Optional<Function<Long, Integer>> pluralizer = getPluralizer(locale);
         if (!pluralizer.isPresent()) {
             throw new IllegalArgumentException("no pluralizer for locale: " + locale);
         }
@@ -199,9 +199,9 @@ public final class Pluralize {
     }
 
     @Deprecated
-    public static String pluralize(@NonNull String isoLocale, int n, @NonNull String... plurals) {
+    public static String pluralize(@NonNull String isoLocale, long n, @NonNull String... plurals) {
 
-        Optional<Function<Integer, Integer>> pluralizer = getPluralizer(isoLocale);
+        Optional<Function<Long, Integer>> pluralizer = getPluralizer(isoLocale);
         if (!pluralizer.isPresent()) {
             throw new IllegalArgumentException("no pluralizer for locale: " + isoLocale);
         }
